@@ -1427,8 +1427,17 @@ document.addEventListener("keydown", e => {
 });
 const targetCreator = () => creatorId() || $("#o_creator")?.value || "";
 function jobOptions() {
-  const n = id => { const v = $(id).value; return v === "" ? null : Number(v); };
-  const o = {max_clips:n("#o_max"), min_len:n("#o_min"), max_len:n("#o_maxlen"), style:$("#o_style").value, layout:$("#o_layout").value, quality:n("#o_quality"), big_text:n("#o_big_text") ? 1 : 0};
+  const n = id => { const el = $(id); if (!el) return null; const v = el.value; return v === "" ? null : Number(v); };
+  const bt = $("#o_big_text") ? Number($("#o_big_text").value || 0) : 0;
+  const o = {
+    max_clips: n("#o_max"),
+    min_len: n("#o_min"),
+    max_len: n("#o_maxlen"),
+    style: $("#o_style")?.value || "bounce",
+    layout: $("#o_layout")?.value || "blur",
+    quality: n("#o_quality") || 720,
+    big_text: bt === 1 ? 1 : 0
+  };
   if (n("#o_from") !== null) o.range_start = n("#o_from") * 60;
   if (n("#o_to") !== null) o.range_end = n("#o_to") * 60;
   return o;
