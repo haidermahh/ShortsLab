@@ -25,6 +25,9 @@ creator's live stream and clip the highlights while the stream is still running.
 
 ### 🪟 Windows (One-Click Auto Setup)
 
+> **Prerequisite:** Make sure you have **[Python 3.10 or newer](https://www.python.org/downloads/)** installed on your system.  
+> ⚠️ **Important:** During Python setup, check the box **"Add python.exe to PATH"**.
+
 1. Clone or download this repository:
    ```bash
    git clone https://github.com/haidermahh/ShortsLab.git
@@ -32,7 +35,7 @@ creator's live stream and clip the highlights while the stream is still running.
    ```
 
 2. Double-click **`run.bat`** (or run it in Command Prompt / Terminal):
-   - Automatically checks Python (3.10+ required).
+   - Automatically checks Python ([Download Python 3.10+](https://www.python.org/downloads/) if you don't have it).
    - Creates virtual environment (`.venv`).
    - Installs all dependencies.
    - Downloads & configures FFmpeg automatically if not present.
@@ -43,7 +46,7 @@ creator's live stream and clip the highlights while the stream is still running.
 
 ### 🐧 Linux / macOS / Manual Setup
 
-You need Python 3.10 or newer and `ffmpeg` on your PATH.
+You need **[Python 3.10 or newer](https://www.python.org/downloads/)** and `ffmpeg` on your PATH.
 
 ```bash
 git clone https://github.com/haidermahh/ShortsLab.git
