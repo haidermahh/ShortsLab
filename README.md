@@ -201,5 +201,5 @@ License; the licence texts are in the same folder.
 ---
 
 <p align="center">
-  Built with ❤️ by <b><a href="https://github.com/haidermahh">Haider</a></b>
+  Built with ❤️ by <b><a href="https://www.instagram.com/haidermahh">Haider</a></b>
 </p>

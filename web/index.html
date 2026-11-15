@@ -830,7 +830,7 @@ dialog[open]{animation:fadein .16s ease}
     <div id="heroSlot"></div>
     <div class="content" id="view"></div>
     <footer class="app-foot">
-      <span>© <span class="app-year">2026</span> ShortsLab · Built with <span class="heart">❤️</span> by <a href="https://github.com/haidermahh" target="_blank" rel="noopener">Haider</a></span>
+      <span>© <span class="app-year">2026</span> ShortsLab · Built with <span class="heart">❤️</span> by <a href="https://www.instagram.com/haidermahh" target="_blank" rel="noopener">Haider</a></span>
     </footer>
   </main>
 </div>
@@ -1268,7 +1268,7 @@ function drawShell() {  const nav = (v, icon, label, extra = "") => `<button cla
     (S.status.user ? `<div class="me"><button class="me-btn" data-act="acctmenu" aria-haspopup="menu" aria-expanded="false">${meAvatar(S.status.user)}
       <span class="who">${S.status.accounts === false ? `<b>Settings</b><span>AI key, connected apps</span>` : `<b>${esc(S.status.user.name)}</b><span>${esc(S.status.user.email)}</span>`}</span></button>
       <button class="icon-btn bell" data-act="bell" title="Notifications" aria-label="Notifications${S.status.unread ? `, ${S.status.unread} new` : ""}" aria-haspopup="dialog">${ic("bell")}${S.status.unread ? `<span class="dotn">${S.status.unread > 9 ? "9+" : S.status.unread}</span>` : ""}</button></div>` : "") +
-    `<div class="built-by">Built with <span class="heart">❤️</span> by <b><a href="https://github.com/haidermahh" target="_blank" rel="noopener">Haider</a></b></div>`);
+    `<div class="built-by">Built with <span class="heart">❤️</span> by <b><a href="https://www.instagram.com/haidermahh" target="_blank" rel="noopener">Haider</a></b></div>`);
   const c = creator();
   const recording = S.creators.filter(x => x.live_job).length;
   let title = {overview:"Home", library:"All videos", settings:"Settings", usage:"AI usage"}[S.view] || "", sub = "", act = "";
