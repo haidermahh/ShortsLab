@@ -347,7 +347,7 @@ function draw() {
   $("#foot").innerHTML = (S.me ? `<div class="who"><b>${esc(S.me.name)}</b>${esc(S.me.email)}</div>` : "") +
     `<a class="nav-item" href="/app">${ic("arrowr")}<span class="label">Back to the app</span></a>
      <button class="nav-item" data-act="logout">${ic("signout")}<span class="label">Sign out</span></button>
-     <div class="built-by"><span>© 2026 ShortsLab</span><span class="sep">·</span><span>Built with <span class="heart">❤️</span> by <b><a href="https://github.com/haidermahh" target="_blank" rel="noopener">Haider</a></b></span></div>`;
+     <div class="built-by">Built with <span class="heart">❤️</span> by <b><a href="https://github.com/haidermahh" target="_blank" rel="noopener">Haider</a></b></div>`;
   $("#title").textContent = title; $("#subtitle").textContent = sub;
   $("#actions").innerHTML = `<button class="btn sm" data-act="refresh">Refresh</button>`;
   if (S.tab === "feedback") { if (!S.fb && !S.fbLoading) { S.fbLoading = true; loadFeedback().finally(() => S.fbLoading = false); } $("#view").innerHTML = drawFeedback(); return; }
