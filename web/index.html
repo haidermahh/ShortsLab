@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PeakCut</title>
-<link rel="icon" type="image/svg+xml" href="/brand/favicon.svg">
+<title>ShortsLab</title>
+<link rel="icon" type="image/svg+xml" href="/brand/shortslab-icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@300&family=Archivo+Black&family=Anton&family=Poppins:wght@800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --brand:#FF8B33;--brand-press:#F27A1F;--brand-ink:#2A1A12;--brand-soft:#FFF2E8;--brand-line:#FFD9BC;--brand-deep:#A9480A;
-  --frame:#1E1612;--frame-2:#2C221D;--frame-line:rgba(255,255,255,.08);--frame-text:#F4EEEA;--frame-dim:#A99A91;
-  --bg:#FFFFFF;--muted:#F7F4F1;--line:#EEE8E4;--line-2:#E1D9D3;
-  --text:#211813;--dim:#6D6159;--faint:#A0948C;
-  --good:#0F8A57;--good-soft:#E6F6EE;--bad:#D3343F;--bad-soft:#FDECEE;--live:#E5323F;
+  --brand:#FF2A54;--brand-press:#E61E45;--brand-ink:#111116;--brand-soft:#FFF0F3;--brand-line:#FFCCD5;--brand-deep:#B80D30;
+  --frame:#0E0F12;--frame-2:#1A1B22;--frame-line:rgba(255,255,255,.08);--frame-text:#F4F4F6;--frame-dim:#8E8E9E;
+  --bg:#FFFFFF;--muted:#F7F7FA;--line:#E8E8EE;--line-2:#DADAE2;
+  --text:#111115;--dim:#5C5C68;--faint:#8E8E9E;
+  --good:#0F8A57;--good-soft:#E6F6EE;--bad:#D3343F;--bad-soft:#FDECEE;--live:#FF2A54;
   --r-lg:16px;--r:12px;--r-sm:8px;
   color-scheme:light;
 }
@@ -27,7 +27,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 svg{width:18px;height:18px;flex:none;fill:currentColor}
 ::selection{background:var(--brand-line)}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#E2D9D7;border-radius:999px;border:3px solid #fff}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#D8D8E0;border-radius:999px;border:3px solid #fff}
 
 /* ---------- frame */
 .app{display:grid;grid-template-columns:240px minmax(0,1fr);height:100vh}
@@ -45,17 +45,17 @@ svg{width:18px;height:18px;flex:none;fill:currentColor}
 .nav-item svg{width:17px;height:17px}
 .nav-item svg{color:var(--frame-dim)}
 .nav-item:active{background:var(--frame-2)}
-.nav-item.on{background:var(--brand);color:var(--brand-ink);font-weight:600}
-.nav-item.on svg{color:var(--brand-ink)}
+.nav-item.on{background:var(--brand);color:#FFFFFF;font-weight:600}
+.nav-item.on svg{color:#FFFFFF}
 .label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .count{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--frame-text);white-space:nowrap}
-.nav-item.on .count{background:rgba(42,26,18,.14);color:var(--brand-ink)}
-.avatar{width:26px;height:26px;border-radius:50%;background:rgba(255,139,51,.18);color:#FFB27A;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none;overflow:hidden}
+.nav-item.on .count{background:rgba(255,255,255,.2);color:#FFFFFF}
+.avatar{width:26px;height:26px;border-radius:50%;background:rgba(255,42,84,.15);color:#FF6180;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none;overflow:hidden}
 img.avatar{object-fit:cover;background:rgba(255,255,255,.08)}
 .tav{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none;background:var(--muted)}
 #title{display:flex;align-items:center;gap:10px}
 .chprev{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:var(--muted);animation:rise .25s ease both}
-.chprev img,.chprev .ph{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;background:#EFE7E1}
+.chprev img,.chprev .ph{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;background:#EAEAEF}
 .chprev b{display:block;font-size:14px;color:var(--brand-ink)}
 .chprev span{font-size:12px;color:var(--faint)}
 .chprev.bad{background:#FDECEC;color:#A12A2A;font-size:13px}
@@ -80,10 +80,10 @@ main{background:var(--bg);margin:8px 8px 8px 0;border-radius:var(--r-lg);height:
 .upd .cmd{display:flex;gap:8px;align-items:center}
 .upd .cmd code{flex:1;min-width:0;overflow-wrap:anywhere;font-size:12px;background:var(--muted);border-radius:8px;padding:9px 11px}
 .upd h3{font-size:13px;font-weight:600;color:var(--brand-ink);margin:0}
-.vb{display:flex;align-items:center;gap:12px;margin:12px 28px 0;padding:12px 12px 12px 16px;border-radius:12px;background:#FFF4E6;color:#7A3E0C;font-size:14px;animation:rise .3s ease both}
+.vb{display:flex;align-items:center;gap:12px;margin:12px 28px 0;padding:12px 12px 12px 16px;border-radius:12px;background:var(--brand-soft);color:var(--brand-deep);font-size:14px;animation:rise .3s ease both}
 .vb svg{width:18px;height:18px;flex:none;color:var(--brand-deep)}
 .vb span{flex:1;min-width:0}
-.vb b{color:#5A2C06}
+.vb b{color:var(--brand-ink)}
 @media (max-width:640px){.vb{margin:10px 16px 0;flex-wrap:wrap}}
 .topbar .titles{flex:1;min-width:0}
 #tpic:empty{display:none}
@@ -98,26 +98,26 @@ main{background:var(--bg);margin:8px 8px 8px 0;border-radius:var(--r-lg);height:
 @media (min-width:761px){.topbar.tabbed{position:sticky}.topbar.tabbed .utabs{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}.topbar.tabbed .titles{max-width:calc(50% - 230px)}}
 @media (max-width:760px){.utabs{order:5;flex-basis:100%;margin:2px 0 0;position:relative}.topbar.tabbed .titles{max-width:none;flex:1}}
 .utabs .tabbtn{height:34px;padding:0 14px;border-radius:8px;background:transparent;color:var(--dim);font-size:13px;transition:background-color .18s ease,color .18s ease}
-.utabs .tabbtn:hover{background:#EDE3DB;color:var(--text)}
+.utabs .tabbtn:hover{background:#EAEAEF;color:var(--text)}
 .utabs .tabbtn::after{display:none}
-.utabs .tabbtn.on{background:transparent;color:var(--brand-ink)}
+.utabs .tabbtn.on{background:transparent;color:#FFFFFF}
 .utabs .tabbtn{position:relative;z-index:1}
 .utabs .ind{position:absolute;top:3px;bottom:3px;left:0;border-radius:8px;background:var(--brand);z-index:0;transition:transform .32s cubic-bezier(.3,.7,.2,1),width .32s cubic-bezier(.3,.7,.2,1)}
 .utabs .tabbtn,.utabs .tabbtn svg,.utabs .tabbtn .n{transition:color .25s ease,background-color .25s ease}
-.utabs .tabbtn.on svg{color:var(--brand-ink)}
+.utabs .tabbtn.on svg{color:#FFFFFF}
 .utabs .tabbtn .n{background:var(--muted);color:var(--dim)}
-.utabs .tabbtn.on .n{background:rgba(42,26,18,.14);color:var(--brand-ink)}
+.utabs .tabbtn.on .n{background:rgba(255,255,255,.2);color:#FFFFFF}
 .rdot{flex:none;width:9px;height:9px;border-radius:50%;background:#fff}
 .btn .rdot.on{background:#E5323F;animation:pulse 1.3s infinite}
 /* live stream panel */
-.stream{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(250px,1fr);gap:14px;background:#1E1612;border-radius:16px;padding:12px;margin-bottom:22px;color:#EFE5DE;animation:rise .3s ease both}
+.stream{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(250px,1fr);gap:14px;background:#0E0F12;border-radius:16px;padding:12px;margin-bottom:22px;color:#EFE5DE;animation:rise .3s ease both}
 .stream .player{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
 .stream iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .noembed{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center;background:#120D0A;color:#EFE5DE}
 .noembed .logo{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;margin-bottom:4px}
 .noembed .logo svg{width:22px;height:22px}
 .noembed b{font-size:15px;color:#fff}
-.noembed span{font-size:13px;color:#B9A597;max-width:380px}
+.noembed span{font-size:13px;color:#8E8E9E;max-width:380px}
 .noembed .btn{margin-top:6px}
 .sinfo{display:flex;flex-direction:column;gap:12px;padding:6px 6px 4px 2px;min-width:0}
 .sinfo .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -126,16 +126,16 @@ main{background:var(--bg);margin:8px 8px 8px 0;border-radius:var(--r-lg);height:
 .sinfo .lv{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;background:#E5323F;color:#fff;padding:3px 10px;border-radius:999px}
 .sinfo .lv i{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.3s infinite}
 .sinfo h3{font-size:16px;line-height:1.4;font-weight:600;color:#fff;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
-.sinfo .by{font-size:12px;color:#B9A597;margin-top:-6px}
+.sinfo .by{font-size:12px;color:#8E8E9E;margin-top:-6px}
 .sstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:8px}
 .sstats div{background:rgba(255,255,255,.06);border-radius:10px;padding:10px 12px}
 .sstats b{display:block;font-size:17px;font-weight:700;color:#fff;letter-spacing:-.01em}
-.sstats span{font-size:11px;color:#B9A597}
+.sstats span{font-size:11px;color:#8E8E9E}
 .sinfo .cta{margin-top:auto;display:flex;flex-direction:column;gap:8px}
 .sinfo .cta .btn{height:46px;width:100%;justify-content:center;font-size:15px}
-.sinfo .cta small{font-size:12px;color:#B9A597;text-align:center}
+.sinfo .cta small{font-size:12px;color:#8E8E9E;text-align:center}
 .splat{display:flex;gap:4px;margin-left:auto}
-.splat button{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:8px;background:rgba(255,255,255,.06);color:#B9A597;cursor:pointer;transition:background-color .15s ease}
+.splat button{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:8px;background:rgba(255,255,255,.06);color:#8E8E9E;cursor:pointer;transition:background-color .15s ease}
 .splat button:hover{background:rgba(255,255,255,.12)}
 .splat button.on{background:rgba(255,139,51,.22)}
 .splat svg{width:15px;height:15px}
@@ -152,7 +152,7 @@ main{background:var(--bg);margin:8px 8px 8px 0;border-radius:var(--r-lg);height:
 .ttabs .tabbtn{height:32px;padding:0 12px;border-radius:8px;font-size:13px;color:var(--dim)}
 .ttabs .tabbtn::after{display:none}
 .ttabs .tabbtn svg{width:16px;height:16px}
-.ttabs .tabbtn:hover{background:#EDE3DB;color:var(--text)}
+.ttabs .tabbtn:hover{background:#EAEAEF;color:var(--text)}
 .ttabs .tabbtn.on{background:var(--brand-soft);color:var(--brand-ink)}
 .ttabs .tabbtn.on .n{background:#fff}
 #actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
@@ -164,7 +164,7 @@ main{background:var(--bg);margin:8px 8px 8px 0;border-radius:var(--r-lg);height:
 .chan{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:var(--muted);min-height:64px}
 .chan .logo{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
 .chan .logo svg{width:20px;height:20px}
-.chan .pic{flex:none;width:40px;height:40px;border-radius:50%;object-fit:cover;background:#EFE7E1}
+.chan .pic{flex:none;width:40px;height:40px;border-radius:50%;object-fit:cover;background:#EAEAEF}
 .chan .who{flex:1;min-width:0}
 .chan .who b{display:block;font-size:14px;color:var(--brand-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chan .who span{font-size:12px;color:var(--faint)}
@@ -198,7 +198,7 @@ img.avatar.ring{background:transparent}
 /* ---------- buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 14px;border-radius:var(--r);border:1px solid var(--line-2);background:#fff;color:var(--text);cursor:pointer;text-decoration:none;white-space:nowrap;font-weight:600}
 .btn:active{background:var(--muted)}
-.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
 .btn.primary:active{background:var(--brand-press);border-color:var(--brand-press)}
 .btn.dark{background:var(--brand-ink);border-color:var(--brand-ink);color:#fff}
 .btn.dark svg{color:var(--brand)}
@@ -213,7 +213,7 @@ img.avatar.ring{background:transparent}
 /* ---------- fields */
 :where(input:not([type=checkbox],[type=radio],[type=file],[type=range]),select,textarea){width:100%;height:40px;padding:0 12px;background:#fff;border:1px solid var(--line-2);border-radius:var(--r-sm);min-width:0;outline:none;transition:border-color .15s ease}
 :where(textarea){height:auto;padding:10px 12px;resize:vertical}
-:where(input:not([type=checkbox],[type=radio],[type=file],[type=range]),select,textarea):hover{border-color:#D9CCC2}
+:where(input:not([type=checkbox],[type=radio],[type=file],[type=range]),select,textarea):hover{border-color:#D0D0D8}
 :where(input:not([type=checkbox],[type=radio],[type=file],[type=range]),select,textarea):focus{background:#fff;border-color:var(--brand)}
 input:not([type=checkbox],[type=radio],[type=range]):focus-visible,select:focus-visible,textarea:focus-visible{outline:none}
 input::placeholder,textarea::placeholder{color:var(--faint)}
@@ -267,7 +267,7 @@ label.ck input{accent-color:var(--brand);margin:0}
 .hero h2{font-size:clamp(21px,5.2vw,28px);font-weight:700;letter-spacing:-.03em;color:var(--brand-ink);line-height:1.2;text-wrap:balance}
 .hero>p{color:var(--dim);margin:8px auto 22px;max-width:520px;font-size:15px}
 .composer{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line-2);border-radius:var(--r-lg);text-align:left;transition:background-color .15s ease,border-color .15s ease}
-.composer:has(#url:focus){border-color:#FFB27A}
+.composer:has(#url:focus){border-color:#FF2A54}
 .composer.compact{max-width:none;margin-bottom:28px;background:var(--muted)}
 .composer.over{background:var(--brand-soft);border-color:var(--brand)}
 .composer :focus-visible{outline:none}
@@ -279,7 +279,7 @@ label.ck input{accent-color:var(--brand);margin:0}
 .chip{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:999px;border:0;background:var(--muted);color:var(--dim);font-weight:500;font-size:13px;cursor:pointer;white-space:nowrap;transition:background-color .15s ease,color .15s ease}
 .composer.compact .chip{background:#fff}
 .chip svg{width:16px;height:16px}
-.chip:hover,.chip:focus-visible{background:#EDE3DB;color:var(--text)}
+.chip:hover,.chip:focus-visible{background:#EAEAEF;color:var(--text)}
 .chip.on,.pick.open .chip{background:var(--brand-soft);color:var(--brand-ink)}
 .hint{font-size:12px;color:var(--faint);margin-right:6px}
 .composer-bar{flex-wrap:nowrap}
@@ -297,7 +297,7 @@ label.ck input{accent-color:var(--brand);margin:0}
 .att-in{display:flex;flex-direction:column;gap:8px;padding:0 12px 8px}
 .lp{display:flex;align-items:center;gap:12px;padding:8px;border-radius:12px;background:var(--muted);animation:rise .28s ease both}
 .composer.compact .lp{background:#fff}
-.lp .th{position:relative;flex:none;width:112px;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#2A1A12}
+.lp .th{position:relative;flex:none;width:112px;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#141418}
 .lp .th img{width:100%;height:100%;object-fit:cover;display:block}
 .lp .th .du{position:absolute;right:5px;bottom:5px;background:rgba(20,12,8,.82);color:#fff;font-size:11px;font-weight:600;padding:1px 6px;border-radius:6px}
 .lp .tx{min-width:0;flex:1}
@@ -321,36 +321,36 @@ label.ck input{accent-color:var(--brand);margin:0}
 .lp .rm{flex:none;width:30px;height:30px;border-radius:8px;border:0;background:transparent;color:var(--faint);display:grid;place-items:center;cursor:pointer;transition:background-color .15s ease,color .15s ease}
 .lp .rm:hover,.lp .rm:focus-visible{background:#FDECEC;color:#C53030}
 .lp .rm svg{width:14px;height:14px}
-.lp .pbar{position:absolute;left:0;bottom:0;height:3px;background:var(--brand);transition:width .2s ease}
+.lp .pbar{position:absolute;left:0;bottom:0;height:4px;background:#000000;transition:width .2s ease}
 .addrow{display:flex;align-items:center;gap:8px;width:100%;height:42px;padding:0 12px;border:0;border-radius:12px;background:transparent;color:var(--dim);font-size:13px;font-weight:600;cursor:pointer;transition:background-color .15s ease,color .15s ease;animation:rise .28s ease both}
 .addrow:hover,.addrow:focus-visible{background:var(--brand-soft);color:var(--brand-ink)}
 .addrow svg{width:16px;height:16px}
 .addrow span{margin-left:auto;font-weight:500;color:var(--faint);font-size:12px}
 @media (max-width:560px){.lp .th{width:88px}.lp .ok{display:none}}
-.btn.primary:disabled{background:#F3E7DD;color:#B9A597;cursor:not-allowed}
+.btn.primary:disabled{background:#FFCCD5;color:#8E8E9E;cursor:not-allowed}
 @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .working{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--brand);background:rgba(255,139,51,.14);padding:2px 8px 2px 6px;border-radius:999px}
 .working i{width:10px;height:10px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite}
-.nav-item.on .working{background:rgba(42,26,18,.14);color:var(--brand-ink)}
+.nav-item.on .working{background:rgba(255,255,255,.2);color:#FFFFFF}
 .app.mini .nav-item .working{display:none}
 
 /* custom dropdown: a dark panel, no border or shadow needed against the white */
 .pick{position:relative}
 .pick .car{width:13px;height:13px;transition:transform .15s ease}
 .pick.open .car{transform:rotate(180deg)}
-.pick-menu{position:absolute;top:calc(100% + 6px);left:0;z-index:30;min-width:230px;max-height:280px;overflow:auto;background:#2A1A12;border-radius:12px;padding:6px;
+.pick-menu{position:absolute;top:calc(100% + 6px);left:0;z-index:30;min-width:230px;max-height:280px;overflow:auto;background:#141418;border-radius:12px;padding:6px;
   opacity:0;visibility:hidden;transform:translateY(-6px);pointer-events:none;transition:opacity .18s ease,transform .18s ease,visibility .18s}
 .pick.open .pick-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}
 .pick-opt{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:0;background:transparent;color:#E9DED6;border-radius:8px;font-size:13px;font-weight:500;text-align:left;cursor:pointer;transition:background-color .15s ease,color .15s ease}
 .pick-opt:hover,.pick-opt:focus-visible{background:rgba(255,255,255,.08);color:#fff}
-.pick-new{display:flex;align-items:center;gap:10px;width:100%;margin-top:4px;padding:8px 10px;border:0;border-top:1px solid rgba(255,255,255,.08);border-radius:0 0 8px 8px;background:transparent;color:#FFB27A;font-size:13px;font-weight:600;text-align:left;cursor:pointer;transition:background-color .15s ease,color .15s ease}
-.pick-new:hover,.pick-new:focus-visible{background:rgba(255,139,51,.14);color:#FFC79D}
+.pick-new{display:flex;align-items:center;gap:10px;width:100%;margin-top:4px;padding:8px 10px;border:0;border-top:1px solid rgba(255,255,255,.08);border-radius:0 0 8px 8px;background:transparent;color:#FF6B8B;font-size:13px;font-weight:600;text-align:left;cursor:pointer;transition:background-color .15s ease,color .15s ease}
+.pick-new:hover,.pick-new:focus-visible{background:rgba(255,42,84,.14);color:#FF2A54}
 .pick-new .av{background:rgba(255,139,51,.18)}
-.pick-empty{margin:6px 10px 4px;font-size:12px;line-height:1.45;color:#B9A597}
+.pick-empty{margin:6px 10px 4px;font-size:12px;line-height:1.45;color:#8E8E9E}
 img.av{object-fit:cover}
-.pick-opt .av,.pick-new .av{flex:none;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:11px;font-weight:700;background:rgba(255,139,51,.18);color:#FFB27A}
+.pick-opt .av,.pick-new .av{flex:none;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:11px;font-weight:700;background:rgba(255,42,84,.15);color:#FF6180}
 .pick-new .av svg,.pick-opt .av svg{width:14px;height:14px}
 .pick-opt .tick{margin-left:auto;width:15px;height:15px;color:var(--brand);visibility:hidden}
 .pick-opt[aria-selected=true] .tick{visibility:visible}
@@ -377,21 +377,21 @@ img.av{object-fit:cover}
 .tiles3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .tile-o{display:flex;flex-direction:column;gap:7px;padding:6px 6px 8px;border:0;border-radius:10px;background:#fff;color:var(--dim);font-size:12px;font-weight:600;cursor:pointer;text-align:center;transition:background-color .15s ease,color .15s ease}
 .composer.compact .tile-o{background:var(--muted)}
-.tile-o:hover,.tile-o:focus-visible{background:#EDE3DB;color:var(--text)}
+.tile-o:hover,.tile-o:focus-visible{background:#EAEAEF;color:var(--text)}
 .tile-o[aria-pressed=true]{background:var(--brand-soft);color:var(--brand-ink)}
-.cap-prev{height:54px;border-radius:7px;background:#1E1612;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;font-size:14px;line-height:1;color:#fff;letter-spacing:0;-webkit-text-stroke:1px #000;paint-order:stroke fill}
+.cap-prev{height:54px;border-radius:7px;background:#0E0F12;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;font-size:14px;line-height:1;color:#fff;letter-spacing:0;-webkit-text-stroke:1px #000;paint-order:stroke fill}
 .cap-prev b{font-weight:inherit}
-.lay-prev{height:54px;border-radius:7px;background:#1E1612;display:grid;place-items:center}
+.lay-prev{height:54px;border-radius:7px;background:#0E0F12;display:grid;place-items:center}
 .lay-prev .ph{position:relative;width:28px;height:48px;border-radius:4px;overflow:hidden;background:#4A3428}
 .lay-prev .ph::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,#B4643A,#5E3A2A);filter:blur(3px);opacity:.75}
-.lay-prev .ph i{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:16px;background:linear-gradient(135deg,#FF8B33,#FFB27A)}
+.lay-prev .ph i{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:16px;background:linear-gradient(135deg,#FF2A54,#FF6B8B)}
 .lay-prev.zoom .ph i{left:-6px;right:-6px;height:24px}
 .lay-prev.crop .ph i{left:0;right:0;top:0;height:100%;transform:none}
 .seg{display:flex;gap:4px;background:#fff;border-radius:10px;padding:4px}
 .composer.compact .seg{background:var(--muted)}
 .seg button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 6px;border:0;border-radius:7px;background:transparent;color:var(--dim);font-size:13px;font-weight:600;cursor:pointer;transition:background-color .15s ease,color .15s ease}
 .seg button small{font-size:11px;font-weight:500;color:var(--faint);transition:color .15s ease}
-.seg button:hover,.seg button:focus-visible{background:#EDE3DB;color:var(--text)}
+.seg button:hover,.seg button:focus-visible{background:#EAEAEF;color:var(--text)}
 .seg button[aria-pressed=true]{background:var(--brand-soft);color:var(--brand-ink)}
 .seg button[aria-pressed=true] small{color:#B8693A}
 .range{display:flex;align-items:center;gap:8px}
@@ -497,8 +497,8 @@ img.av{object-fit:cover}
 .jthumb .du{position:absolute;right:5px;bottom:5px;background:rgba(20,12,8,.82);color:#fff;font-size:11px;font-weight:600;padding:1px 6px;border-radius:6px}
 @media (max-width:560px){.jthumb{width:92px}}
 .job-head h3{font-size:15px;font-weight:600;overflow-wrap:anywhere;color:var(--brand-ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.bar{height:6px;background:var(--muted);border-radius:999px;overflow:hidden;margin:6px 0}
-.bar i{display:block;height:100%;background:var(--brand);border-radius:999px;transition:width .8s ease}
+.bar{height:7px;background:#D4D4DC;border-radius:999px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:#000000;border-radius:999px;transition:width .8s ease}
 .err{color:var(--bad);font-size:13px;overflow-wrap:anywhere;margin:6px 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
 .clip{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
@@ -520,13 +520,13 @@ img.av{object-fit:cover}
 .selck input{width:16px;height:16px;accent-color:var(--brand);cursor:pointer;margin:0}
 .clip.picked{border-color:var(--brand)}
 #selbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;display:none;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
-  max-width:calc(100vw - 24px);padding:10px 12px 10px 18px;border-radius:14px;background:#1F140D;color:#FFF4EA;font-size:14px;border:1px solid rgba(255,178,122,.25)}
+  max-width:calc(100vw - 24px);padding:10px 12px 10px 18px;border-radius:14px;background:#121318;color:#FFF4EA;font-size:14px;border:1px solid rgba(255,42,84,.25)}
 #selbar.on{display:flex}
 #selbar b{font-weight:700;margin-right:6px}
 #selbar .btn{background:transparent;color:#FFF4EA;border-color:rgba(255,244,234,.25)}
 #selbar .btn:hover{background:rgba(255,244,234,.1)}
-#selbar .btn.primary{background:var(--brand);color:#1F140D;border-color:var(--brand)}
-#selbar .btn.primary:hover{background:#FFA25C}
+#selbar .btn.primary{background:var(--brand);color:#FFFFFF;border-color:var(--brand)}
+#selbar .btn.primary:hover{background:#FF4065}
 #selbar .btn.danger{color:#FF9A8F;border-color:rgba(255,154,143,.45)}
 #selbar .btn.danger:hover{background:rgba(255,154,143,.14)}
 .danger-card{border-color:#F3C9C4}
@@ -602,7 +602,7 @@ dialog::backdrop{background:rgba(14,12,11,.42);animation:fadein .16s ease}
 
 .ntoast{display:flex;gap:12px;align-items:flex-start;width:340px;max-width:calc(100vw - 40px);padding:12px 12px 12px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--text);cursor:pointer;text-align:left;
   animation:ntin .35s cubic-bezier(.2,.8,.2,1) both;transition:background-color .15s ease}
-.ntoast:hover{background:#FFFBF8}
+.ntoast:hover{background:var(--brand-soft)}
 .ntoast.out{animation:ntout .25s ease forwards}
 .ntoast i{flex:none;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand-deep)}
 .ntoast i svg{width:17px;height:17px}
@@ -698,27 +698,27 @@ input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;bac
 
 /* ---------- motion and hover: colour only, never size */
 .btn,.nav-item,.chip,.step,.tabbtn,.icon-btn,label.ck,.clip,a.lnk,.ai-card,.veil span,td,label.sw input{transition:background-color .15s ease,border-color .15s ease,color .15s ease}
-.btn:hover{background:var(--muted);border-color:#D4CAC3}
-.btn.primary:hover{background:#FF9A4C;border-color:#FF9A4C}
-.btn.dark:hover{background:#3A2C25;border-color:#3A2C25}
+.btn:hover{background:var(--muted);border-color:#D0D0D8}
+.btn.primary:hover{background:#FF4065;border-color:#FF4065}
+.btn.dark:hover{background:#24252E;border-color:#24252E}
 .btn.danger:hover{background:#FADDE0}
 .btn.ghost:hover{background:var(--muted);border-color:transparent;color:var(--text)}
 
 .nav-item:hover{background:var(--frame-2)}
-.nav-item.on:hover{background:#FF9A4C}
+.nav-item.on:hover{background:#E61942}
 .icon-btn:hover{background:var(--muted);color:var(--text)}
 .side .icon-btn:hover{background:var(--frame-2);color:var(--frame-text)}
 .chip:hover{background:var(--muted);color:var(--text)}
-.chip.on:hover,.pick.open .chip:hover{background:#FFE2CC;color:var(--brand-ink)}
-.step:hover{background:#F1EBE6}
+.chip.on:hover,.pick.open .chip:hover{background:#FFE0E6;color:var(--brand-ink)}
+.step:hover{background:#EAEAEF}
 .tabbtn:hover{color:var(--brand-ink);background:var(--muted)}
-label.ck:hover{border-color:#D4CAC3}
+label.ck:hover{border-color:#D0D0D8}
 .clip:hover{border-color:var(--line-2)}
-.shot:hover .veil span{background:#FF9A4C}
+.shot:hover .veil span{background:#FF2A54}
 a.lnk:hover{color:var(--brand-deep)}
-tr:hover>td{background:#FCFAF8}
-.ai-card:hover{background:#352a24}
-.ai-card.on{border-color:rgba(255,139,51,.5)}
+tr:hover>td{background:var(--muted)}
+.ai-card:hover{background:#1E1F27}
+.ai-card.on{border-color:rgba(255,42,84,.5)}
 .app.mini .ai-card:hover{background:var(--frame-2)}
 dialog[open]{animation:fadein .16s ease}
 @keyframes fadein{from{opacity:0}}
@@ -763,13 +763,13 @@ dialog[open]{animation:fadein .16s ease}
 .tr-chips,.tr-body h2,.tr-body p{animation:tr-in .45s cubic-bezier(.22,.8,.24,1) both}
 .tr-body p{animation-delay:.05s}
 .tr-foot{display:flex;align-items:center;gap:10px;padding:14px 22px 20px}
-.tr-bar{width:64px;height:4px;border-radius:999px;background:var(--line-2);overflow:hidden;flex:none}
-.tr-bar i{display:block;height:100%;width:0;background:var(--brand-ink);border-radius:999px;transition:width .5s cubic-bezier(.22,.8,.24,1)}
-.tr-n{font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tr-bar{width:76px;height:6px;border-radius:999px;background:#D4D4DC;overflow:hidden;flex:none}
+.tr-bar i{display:block;height:100%;width:0;background:#000000;border-radius:999px;transition:width .5s cubic-bezier(.22,.8,.24,1)}
+.tr-n{font-size:13px;font-weight:700;color:#000000;font-variant-numeric:tabular-nums;white-space:nowrap}
 .tr-grow{flex:1}
 .tr-back{width:40px;height:40px;border-radius:var(--r);border:0;background:var(--muted);color:var(--brand-ink);display:grid;place-items:center;cursor:pointer;flex:none;transition:background-color .15s ease,opacity .2s ease}
 .tr-back svg{transform:rotate(180deg)}
-.tr-back:hover{background:#EDE3DB}
+.tr-back:hover{background:#EAEAEF}
 .tr-back[disabled]{opacity:0;pointer-events:none}
 .tr-foot .btn{height:40px;padding:0 16px}
 @keyframes tr-in{from{opacity:0;transform:translateY(6px)}}
@@ -805,7 +805,7 @@ dialog[open]{animation:fadein .16s ease}
 <body>
 <div class="app" id="app">
   <aside class="side" aria-label="Sidebar">
-    <div class="side-head"><img class="logo" src="/brand/logo-light.svg" alt="PeakCut"><img class="mark" src="/brand/favicon.svg" alt="PeakCut">
+    <div class="side-head"><img class="logo" src="/brand/shortslab-logo.svg" alt="ShortsLab"><img class="mark" src="/brand/shortslab-icon.svg" alt="ShortsLab">
       <button class="icon-btn collapse" data-act="collapse" id="collapseBtn" aria-label="Collapse sidebar"></button></div>
     <nav class="nav" id="nav" aria-label="Main"></nav>
     <div class="side-foot" id="foot"></div>
@@ -926,15 +926,15 @@ function startTour() {
   if (S.view !== "overview") go("overview");
   // sel: what the step points at.  side: it lives in the sidebar (opened for the step on phones).  dock: where the card sits on phones.
   const steps = [
-    {t: "Welcome to PeakCut", x: "Long videos and live streams go in, captioned vertical clips come out. Here is a quick look around.",
+    {t: "Welcome to ShortsLab", x: "Long videos and live streams go in, captioned vertical clips come out. Here is a quick look around.",
      chips: [["link", "Paste a link"], ["scissors", "Get clips", 1], ["radio", "Live streams"], ["send", "Post them"]]},
-    {t: "Start with any video", x: "Paste a YouTube, Twitch or Kick link here, or upload a file. PeakCut finds the best moments and makes each one a short with captions.",
+    {t: "Start with any video", x: "Paste a YouTube, Twitch or Kick link here, or upload a file. ShortsLab finds the best moments and makes each one a short with captions.",
      sel: "#addform", dock: "bottom", chips: [["link", "YouTube"], ["link", "Twitch"], ["link", "Kick"], ["up", "Upload", 1]]},
     {t: "Your day at a glance", x: "Home shows what is recording, how many clips were made and posted today, and what is waiting to go out.",
      sel: "#ov .tiles", dock: "bottom", chips: [["radio", "Recording"], ["scissors", "Clips today", 1], ["send", "Posted"], ["clock", "Waiting"]]},
     {t: "Every video in one place", x: "All videos lists everything you have processed. Open a video to see its clips, trim them, change the captions or download them.",
      sel: '#nav [data-v="library"]', side: 1, dock: "bottom", chips: [["film", "All videos", 1], ["play", "Preview"], ["sliders", "Edit"], ["down", "Download"]]},
-    {t: "Add the creators you clip", x: "Give each creator a workspace with their channels. PeakCut can record them when they go live and clip the highlights as they happen.",
+    {t: "Add the creators you clip", x: "Give each creator a workspace with their channels. ShortsLab can record them when they go live and clip the highlights as they happen.",
      sel: '#nav [data-act="newcreator"]', side: 1, dock: "bottom", chips: [["plusc", "New creator", 1], ["radio", "Record live"], ["bolt", "Clip highlights"]]},
     {t: "The AI picks the moments", x: "This shows which AI this server uses and how much it has worked today. Open it to see what the AI was used for.",
      sel: "#foot .ai-card", side: 1, dock: "top", chips: [["bolt", "AI", 1], ["chart", "See usage"]]},
@@ -1090,7 +1090,7 @@ function drawStream() {
     pl.dataset.src = src;
     const ipHost = /^[\d.]+$|^\[/.test(location.hostname);
     pl.innerHTML = k === "twitch" && ipHost
-      ? `<div class="noembed">${platLogo(k)}<b>Twitch only plays inside sites with a web address</b><span>It will play here once PeakCut is on its domain, or open PeakCut at localhost instead of ${esc(location.hostname)}.</span><a class="btn sm" href="${esc(p.channel)}" target="_blank" rel="noopener">Watch on Twitch ${ic("upright")}</a></div>`
+      ? `<div class="noembed">${platLogo(k)}<b>Twitch only plays inside sites with a web address</b><span>It will play here once ShortsLab is on its domain, or open ShortsLab at localhost instead of ${esc(location.hostname)}.</span><a class="btn sm" href="${esc(p.channel)}" target="_blank" rel="noopener">Watch on Twitch ${ic("upright")}</a></div>`
       : src ? `<iframe src="${src}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${PLAT[k].name} live stream"></iframe>` : "";
   }
   const stats = [p.viewers != null ? [fmtK(p.viewers), "watching"] : null, p.started ? [since(p.started), "live for"] : null,
@@ -1102,7 +1102,7 @@ function drawStream() {
     ${stats.length ? `<div class="sstats">${stats.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join("")}</div>` : ""}
     <div class="cta">${rec
       ? `<button class="btn danger" data-act="stoplive" data-j="${esc(rec)}">${ic("stop")}Stop recording</button><small>Recording now. Clips appear below as they're made.</small>`
-      : `<button class="btn primary" data-act="golive" data-url="${esc(p.channel)}"><span class="rdot"></span>Record this stream</button><small>PeakCut watches it and clips the best moments as they happen.</small>`}</div>`);
+      : `<button class="btn primary" data-act="golive" data-url="${esc(p.channel)}"><span class="rdot"></span>Record this stream</button><small>ShortsLab watches it and clips the best moments as they happen.</small>`}</div>`);
 }
 function liveOn(c) { return Object.entries(c.profiles || {}).filter(([k, p]) => p.live && c.channels?.[k] === p.channel).sort(([, p]) => p.channel === c.channel ? -1 : 1); }
 function statusBadge(c) {
@@ -1114,7 +1114,7 @@ function statusBadge(c) {
 }
 const cav = c => { const r = c.live_job || liveOn(c).length ? " ring" : "";
   return c.profile?.pic && c.profile.channel === c.channel ? `<img class="avatar${r}" src="${avatarUrl(c)}" alt="">` : `<span class="avatar${r}">${esc((c.name || "?")[0].toUpperCase())}</span>`; };
-const GRADS = [["#FF8B33", "#FFB27A"], ["#7C5CFF", "#B9A7FF"], ["#0EA5E9", "#7DD3FC"], ["#10B981", "#6EE7B7"],
+const GRADS = [["#FF2A54", "#FF6B8B"], ["#7C5CFF", "#B9A7FF"], ["#0EA5E9", "#7DD3FC"], ["#10B981", "#6EE7B7"],
                ["#F43F5E", "#FDA4AF"], ["#F59E0B", "#FDE68A"], ["#EC4899", "#F9A8D4"], ["#14B8A6", "#99F6E4"]];
 function meAvatar(u) {
   if (u.photo) return `<img class="avatar me-pic" src="/api/me/photo?v=${u.photo}" alt="">`;
@@ -1209,14 +1209,14 @@ async function openFeedback(kind = "bug", context = "") {
 }
 function updateHow() {
   const up = S.status?.update, d = $("#formdlg"); if (!up || d.open) return;
-  const ai = "Update this PeakCut folder to the latest version from GitHub (git pull), keep my .env and data folder as they are, install any new requirements, and restart PeakCut.";
+  const ai = "Update this ShortsLab folder to the latest version from GitHub (git pull), keep my .env and data folder as they are, install any new requirements, and restart ShortsLab.";
   const cmd = (label, text) => `<h3>${label}</h3><div class="cmd"><code>${esc(text)}</code><button class="btn sm" type="button" data-act="copytext" data-t="${esc(text)}">${ic("copy")}Copy</button></div>`;
-  d.innerHTML = `<form method="dialog" class="dlg upd"><h2>A new version of PeakCut is out</h2>
+  d.innerHTML = `<form method="dialog" class="dlg upd"><h2>A new version of ShortsLab is out</h2>
     <p class="help">You're on <b>${esc(up.current)}</b>. ${up.behind} update${up.behind === 1 ? " has" : "s have"} been added since. Your settings, keys and clips stay as they are.</p>
     ${up.notes.length ? `<ul>${up.notes.map(n => `<li>${esc(n.title)} <small>${esc(n.date)}</small></li>`).join("")}</ul>` : ""}
     ${cmd("Ask your AI coding assistant (Claude, Cursor, Copilot...)", ai)}
-    ${cmd("Or run it yourself, in the PeakCut folder", "git pull && pip install -r requirements.txt")}
-    <p class="sub">Then stop PeakCut and start it again. With Docker, run <code>git pull && docker compose up -d --build</code> instead. <a class="lnk" href="${esc(up.url)}" target="_blank" rel="noopener">See every change on GitHub</a></p>
+    ${cmd("Or run it yourself, in the ShortsLab folder", "git pull && pip install -r requirements.txt")}
+    <p class="sub">Then stop ShortsLab and start it again. With Docker, run <code>git pull && docker compose up -d --build</code> instead. <a class="lnk" href="${esc(up.url)}" target="_blank" rel="noopener">See every change on GitHub</a></p>
     <div class="dlg-foot"><button class="btn" value="later">Remind me next version</button><button class="btn primary" value="ok" autofocus>Got it</button></div></form>`;
   d.onclose = () => { if (d.returnValue === "later") { try { localStorage.setItem("peakcut_update_seen", up.latest); } catch {} drawShell(); } };
   d.returnValue = "ok"; d.showModal();
@@ -1271,17 +1271,12 @@ function drawShell() {  const nav = (v, icon, label, extra = "") => `<button cla
     act = c.live_job ? `<button class="btn danger" data-act="stoplive" data-j="${esc(c.live_job)}">${ic("stop")}Stop recording</button>`
                      : `<button class="btn primary" data-act="golive"><span class="rdot"></span>${liveOn(c).length ? "Record live stream" : "Start recording"}</button>`;
   }
-  if (S.view === "overview" || S.view === "library") {
-    const L = S.status.links || {};
-    act = (L.repo ? `<a class="btn" href="${esc(L.repo)}" target="_blank" rel="noopener" title="Star PeakCut on GitHub">${ic("github")}<span>Star<span class="long"> on GitHub</span></span></a>` : "")
-        + (L.follow ? `<a class="btn primary" href="${esc(L.follow)}" target="_blank" rel="noopener" title="Follow the maker of PeakCut on Instagram">${ic("instagram")}Follow me</a>` : "");
-  }
   const me = S.status.user;
   const kk = S.status.ai;
   const up = S.status.update;
   let upSeen = "";
   try { upSeen = localStorage.getItem("peakcut_update_seen") || ""; } catch {}
-  const upBar = up && up.latest !== upSeen ? `<div class="vb" role="status">${ic("up")}<span>A new version of PeakCut is out: <b>${up.behind} update${up.behind === 1 ? "" : "s"}</b> since yours.</span>
+  const upBar = up && up.latest !== upSeen ? `<div class="vb" role="status">${ic("up")}<span>A new version of ShortsLab is out: <b>${up.behind} update${up.behind === 1 ? "" : "s"}</b> since yours.</span>
     <button class="btn sm primary" data-act="updhow">How to update</button><button class="btn sm ghost" data-act="updlater" aria-label="Hide until the next version">Later</button></div>` : "";
   put($("#vbanner"), upBar ? upBar : me && me.verified === false ? `<div class="vb" role="status">${ic("warn")}<span>Confirm your email to start clipping. We sent a link to <b>${esc(me.email)}</b>.</span><button class="btn sm" data-act="resendverify">Send a new link</button></div>`
     : kk && kk.ready === false && S.view !== "usage" ? `<div class="vb" role="status">${ic("bolt")}<span>${me?.is_admin ? "Add your AI key to let the AI pick clips and write titles. Until then, clips are picked by loudness." : "The AI isn't set up on this server yet, so clips are picked by loudness."}</span>${me?.is_admin && S.view !== "settings" ? `<button class="btn sm primary" data-act="go" data-v="settings" data-tab="ai">${ic("plus")}Add AI key</button>` : ""}</div>` : "");
@@ -1326,7 +1321,7 @@ function go(v, tab, fromHistory) {
   else if (v === "usage") { view.innerHTML = `<div id="usage"></div>`; loadUsage(); }
   else view.innerHTML = `<div id="stream"></div><div id="cbody"></div>`;   // the live player stays put across tabs: no restart, no rebuffer
   if ($("#add")) drawAdd(v === "overview" ? "hero" : "compact");
-  if (v === "overview" && window.GradientASCII) { try { window._gaStop = GradientASCII($("#appAscii"), {colors: ["#ffb27a", "#ffffff", "#ffd2ae", "#ffe0c2", "#fff1e6"], shape: "horizon", lightMode: true, cellSize: 16, density: 0.8, glyphOpacity: 0.26, gradientOpacity: 0.32, glow: 0.06, grain: 0.06, mouseInteraction: false, clickEffect: "none"}); } catch {} }
+  if (v === "overview" && window.GradientASCII) { try { window._gaStop = GradientASCII($("#appAscii"), {colors: ["#FF2A54", "#ffffff", "#FF6B8B", "#FFCCD5", "#FFF0F3"], shape: "horizon", lightMode: true, cellSize: 16, density: 0.8, glyphOpacity: 0.26, gradientOpacity: 0.32, glow: 0.06, grain: 0.06, mouseInteraction: false, clickEffect: "none"}); } catch {} }
   if (v === "settings") drawSettings();
   if (v.startsWith("c:")) setTab(S.ctab);
   $("#main").scrollTo(0, 0); render();
@@ -1376,7 +1371,7 @@ function drawAdd(variant) {
 const LAYOUT_SHORT = {blur:"Blurred fill", zoom:"Zoomed in", crop:"Fill screen"};
 const CAP_LOOK = {bounce:{font:"'Archivo Black'", hl:"#FFFF00", up:true}, hype:{font:"Anton", hl:"#FF3C3C", up:true}, clean:{font:"Poppins", hl:"#6BD7FF", up:false, w:800}};
 function capPrev(k) {
-  const s = CAP_LOOK[k] || {font:"inherit", hl:"#FF8B33", up:true};
+  const s = CAP_LOOK[k] || {font:"inherit", hl:"#FF2A54", up:true};
   const t = s.up ? ["CLIP", "THIS"] : ["Clip", "this"];
   return `<span class="cap-prev" style="font-family:${s.font},sans-serif;font-weight:${s.w || 400}">${t[0]}&nbsp;<b style="color:${s.hl}">${t[1]}</b></span>`;
 }
@@ -1512,7 +1507,7 @@ async function lookUp(u) {
     if (e instanceof TypeError) {           // the request itself dropped (network blip): try once more quietly
       await new Promise(r => setTimeout(r, 800));
       try { return await api("/api/preview?url=" + encodeURIComponent(u)); }
-      catch (e2) { throw new Error(e2 instanceof TypeError ? "Couldn't reach PeakCut to check that link. Check your connection and paste it again." : e2.message); }
+      catch (e2) { throw new Error(e2 instanceof TypeError ? "Couldn't reach ShortsLab to check that link. Check your connection and paste it again." : e2.message); }
     }
     throw e;
   }
@@ -1784,7 +1779,7 @@ function drawJobs() {
     list = list.filter(j => j.status !== "live"); }
   if (!list.length) {
     root.querySelectorAll("section").forEach(e => e.remove());
-    if (!$(".empty", root)) root.innerHTML = `<div class="empty"><img src="/brand/favicon.svg" alt=""><b>${cid ? "No clips for this creator yet" : "No videos yet"}</b>${cid ? "Start recording their stream, or paste a link to one of their videos above." : "Paste a link above and the studio will find the best moments and turn them into clips."}</div>`;
+    if (!$(".empty", root)) root.innerHTML = `<div class="empty"><img src="/brand/shortslab-icon.svg" alt=""><b>${cid ? "No clips for this creator yet" : "No videos yet"}</b>${cid ? "Start recording their stream, or paste a link to one of their videos above." : "Paste a link above and the studio will find the best moments and turn them into clips."}</div>`;
     return;
   }
   $(".empty", root)?.remove();
@@ -1868,7 +1863,7 @@ async function saveCreator(quiet) {
 function drawLog() {
   const c = creator();
   put($("#clog"), c && c.log.length ? `<div class="card"><div class="log">${c.log.map(l => `<div><time>${when(l.t)}</time><span>${esc(l.msg)}</span></div>`).join("")}</div></div>`
-    : `<div class="empty"><img src="/brand/favicon.svg" alt=""><b>Nothing has happened yet</b>Recordings, clips and posts for this creator will be listed here.</div>`);
+    : `<div class="empty"><img src="/brand/shortslab-icon.svg" alt=""><b>Nothing has happened yet</b>Recordings, clips and posts for this creator will be listed here.</div>`);
 }
 
 /* ============================================================ overview */
@@ -1919,12 +1914,12 @@ function drawOverview() {
         ${barChart(o.daily || [])}</div>
       ${aiCard()}
     </div>
-    ${steps.length ? `<div class="card"><div class="card-head"><div><h2>Next steps</h2><p class="sub">Finish setting up PeakCut</p></div></div>
+    ${steps.length ? `<div class="card"><div class="card-head"><div><h2>Next steps</h2><p class="sub">Finish setting up ShortsLab</p></div></div>
       <div class="steps across">${steps.map((x, i) => `<button class="step" data-act="step" data-to="${esc(x[2])}"><span class="n">${i + 1}</span><span><b>${esc(x[0])}</b><span class="d">${esc(x[1])}</span></span>${ic("arrowr")}</button>`).join("")}</div></div>` : ""}
     <div class="card"><div class="card-head"><div><h2>Creators</h2><p class="sub">Each creator's status and results</p></div></div>
       ${o.creators.length ? `<div class="scroll"><table><tr><th>Creator</th><th>Status</th><th>Auto-post</th><th class="num">Clips today</th><th class="num">Posted today</th><th class="num">Waiting</th><th class="num">Failed</th><th class="num">Views</th><th class="num">Est. $</th></tr>
       ${o.creators.map(r => `<tr><td><a class="lnk" href="#" data-act="go" data-v="c:${esc(r.id)}">${esc(r.name)}</a></td><td>${state(r)}</td><td>${r.autopost ? `<span class="pill ok">On</span>` : `<span class="pill">Off</span>`}</td><td class="num">${r.clips_today} <span class="sub">/ ${r.clips_total}</span></td><td class="num">${r.posted_today} <span class="sub">/ ${r.posted_total}</span></td><td class="num">${r.queued}</td><td class="num">${r.failed}</td><td class="num">${r.views.toLocaleString()}</td><td class="num">${r.earnings.toFixed(2)}</td></tr>`).join("")}</table></div>`
-      : `<div class="empty"><img src="/brand/favicon.svg" alt=""><b>No creators yet</b>Add one to give each streamer their own workspace.</div>`}</div>
+      : `<div class="empty"><img src="/brand/shortslab-icon.svg" alt=""><b>No creators yet</b>Add one to give each streamer their own workspace.</div>`}</div>
     <div class="card"><div class="card-head"><div><h2>Post queue</h2><p class="sub">${o.paused ? "Paused. Recording and clipping carry on; nothing is posted." : "Queued clips go out at their scheduled time."}</p></div>
         <button class="btn ${o.paused ? "primary" : ""}" data-act="pause">${ic(o.paused ? "play" : "pause")}${o.paused ? "Resume posting" : "Pause all posting"}</button></div>
       ${o.posts.length ? `<div class="scroll"><table class="stack"><tr><th>When</th><th>Clip</th><th>Creator</th><th>Account</th><th class="num">Views</th><th></th></tr>
@@ -2004,7 +1999,7 @@ async function drawSettings() {
   try {
     if (tab === "ai") {
       const k = S.ai = await api("/api/ai");
-      body.innerHTML = `<section class="set-sec"><h2>AI</h2><p class="help">PeakCut uses an AI model to pick the moments worth clipping and to write hooks, titles and captions. Use your own key from any of these services. You pay that service directly. Without a key, clips are picked by loudness.</p>
+      body.innerHTML = `<section class="set-sec"><h2>AI</h2><p class="help">ShortsLab uses an AI model to pick the moments worth clipping and to write hooks, titles and captions. Use your own key from any of these services. You pay that service directly. Without a key, clips are picked by loudness.</p>
           <div class="ai-state">${k.ready ? `<span class="pill ok">${ic("check")}Ready</span><span class="sub">${esc(k.label)} · ${esc(k.models[0] || "")}</span>` : `<span class="pill warn">Not set up</span><span class="sub">Choose a service, paste your key and pick a model.</span>`}</div>
           <div class="ai-form">
             <label class="f">AI service<select id="ai_provider">${k.providers.map(x => `<option value="${esc(x.id)}" ${x.id === k.provider ? "selected" : ""}>${esc(x.label)}</option>`).join("")}</select></label>
@@ -2018,7 +2013,7 @@ async function drawSettings() {
     }
     if (tab === "profile") {
       const joined = me.created_at ? new Date(me.created_at * 1000).toLocaleDateString([], {day: "numeric", month: "long", year: "numeric"}) : "";
-      body.innerHTML = `<section class="set-sec"><h2>Profile</h2><p class="help">This is how you appear in PeakCut.</p>
+      body.innerHTML = `<section class="set-sec"><h2>Profile</h2><p class="help">This is how you appear in ShortsLab.</p>
         <div class="prof">${meAvatar(me).replace('class="avatar me-pic"', 'class="avatar prof-pic"')}<div><b>${esc(me.name)}</b><span>${esc(me.email)}</span></div></div>
         <dl class="kv"><div><dt>Email</dt><dd>${esc(me.email)} ${me.verified === false ? `<span class="pill warn">Not confirmed</span>` : `<span class="pill ok">Confirmed</span>`}</dd></div>
           <div><dt>Sign-in method</dt><dd>${me.google ? `Google${me.has_password ? " and password" : ""}` : "Email and password"}</dd></div>
@@ -2032,7 +2027,7 @@ async function drawSettings() {
             <label class="f">${me.has_password ? "New password" : "Password"}<input id="pw_new" type="password" autocomplete="new-password" placeholder="At least 8 characters"></label></div>
           <div class="row" style="margin-top:14px"><button class="btn primary" data-act="pwsave">${me.has_password ? "Change password" : "Set password"}</button>
             ${me.has_password ? `<a class="btn ghost" href="/reset">Forgot it?</a>` : ""}</div></section>
-        <section class="set-sec"><h2>Sessions</h2><p class="help">Sign out of PeakCut on this device. Changing your password signs out every other device too.</p>
+        <section class="set-sec"><h2>Sessions</h2><p class="help">Sign out of ShortsLab on this device. Changing your password signs out every other device too.</p>
           <button class="btn" data-act="logout">${ic("signout")}Sign out</button></section>
         <section class="set-sec"><h2 style="color:var(--bad)">Delete account</h2><p class="help">Removes your account and everything in it for good: creators, recordings, videos, clips and history.</p>
           <button class="btn danger" data-act="delaccount">${ic("trash")}Delete my account</button></section>`;
@@ -2071,7 +2066,7 @@ async function drawSettings() {
             <p class="sub">To let people connect ${name}, register this server once with <a href="${g[0]}" target="_blank" rel="noopener">${g[1]}</a>. It takes about five minutes.</p>
             <ol>${g[2].map(x => `<li>${x}</li>`).join("")}</ol>
             <div class="copyrow"><code>${esc(st.redirect)}</code><button class="btn sm" data-act="copytext" data-t="${esc(st.redirect)}">${ic("copy")}Copy</button></div>
-            ${!st.https && pf !== "youtube" ? `<p class="warnline">${name} only accepts https addresses. Put PeakCut on a domain with https (or a tunnel) and set PEAKCUT_PUBLIC_URL to it first.</p>` : ""}
+            ${!st.https && pf !== "youtube" ? `<p class="warnline">${name} only accepts https addresses. Put ShortsLab on a domain with https (or a tunnel) and set PEAKCUT_PUBLIC_URL to it first.</p>` : ""}
             <div class="fields"><label class="f">${esc(st.id_label)}<input id="app_id" placeholder="${st.ready ? "Saved: " + esc(st.id_hint) + ". Paste a new one to replace it" : ""}" autocomplete="off" spellcheck="false"></label>
               <label class="f">${esc(st.secret_label)}<input id="app_secret" type="password" placeholder="${st.ready ? "Saved. Paste a new one to replace it" : ""}" autocomplete="off"></label></div>
             <p class="sub">${g[3]}</p>
@@ -2079,7 +2074,7 @@ async function drawSettings() {
         return `<div class="appcard"><span class="applogo" style="background:${bg}">${logo}</span>
           <div class="apptx"><b>${name}</b><span>${desc}</span>${listOf(accs)}</div><div class="appact">${act}</div>${panel}</div>`;
       };
-      body.innerHTML = `<section class="set-sec"><h2>Connected apps</h2><p class="help">Connect the accounts PeakCut posts clips to: press Connect, sign in on the platform's own page, and you're back here. PeakCut never sees your passwords. Then pick which accounts each creator posts to, in that creator's Setup.</p>
+      body.innerHTML = `<section class="set-sec"><h2>Connected apps</h2><p class="help">Connect the accounts ShortsLab posts clips to: press Connect, sign in on the platform's own page, and you're back here. ShortsLab never sees your passwords. Then pick which accounts each creator posts to, in that creator's Setup.</p>
         <div class="apps">
           ${card("youtube", "YouTube", yt, "#FF0000", "Post clips to your channel as Shorts.")}
           ${card("instagram", "Instagram", ig, "linear-gradient(45deg,#F58529,#DD2A7B,#8134AF)", "Post clips as Reels. Needs a Creator or Business account.")}

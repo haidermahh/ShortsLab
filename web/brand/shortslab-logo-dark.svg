@@ -1,0 +1,20 @@
+<svg width="720" height="220" viewBox="0 0 720 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="slgIconD" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF3E6C"/>
+      <stop offset="100%" stop-color="#FF1E4B"/>
+    </linearGradient>
+    <linearGradient id="slgWhiteD" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F8F4F6"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon Badge -->
+  <rect x="0" y="0" width="220" height="220" rx="54" fill="url(#slgIconD)"/>
+  <path d="M 52 68 C 52 50, 68 42, 94 42 H 162 C 174 42, 180 54, 174 66 L 144 108 C 138 114, 128 118, 116 118 H 82 C 68 118, 60 102, 68 90 Z" fill="url(#slgWhiteD)"/>
+  <path d="M 168 152 C 168 170, 152 178, 126 178 H 58 C 46 178, 40 166, 46 154 L 76 112 C 82 106, 92 102, 104 102 H 138 C 152 102, 160 118, 152 130 Z" fill="url(#slgWhiteD)"/>
+  <polygon points="104,94 130,110 104,126" fill="#1C0308"/>
+
+  <!-- Typography -->
+  <text x="250" y="148" font-family="'Geist', 'Inter', system-ui, -apple-system, sans-serif" font-weight="900" font-size="94" fill="#111115" letter-spacing="-1">Shorts<tspan fill="#FF2A54">Lab</tspan></text>
+</svg>

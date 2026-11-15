@@ -1,9 +1,9 @@
-# PeakCut
+# ShortsLab
 
 Turn long videos and live streams into captioned vertical clips, ready to post. Free and open source: run it on
 your own computer or server, with your own AI key.
 
-Paste a YouTube, Twitch or Kick link (or upload a file) and PeakCut finds the moments worth clipping, cuts them to
+Paste a YouTube, Twitch or Kick link (or upload a file) and ShortsLab finds the moments worth clipping, cuts them to
 9:16, adds word-by-word captions and a hook, and can post them to your connected accounts. It can also record a
 creator's live stream and clip the highlights while the stream is still running.
 
@@ -23,14 +23,39 @@ creator's live stream and clip the highlights while the stream is still running.
 
 ## Quick start
 
+### 🪟 Windows (One-Click Auto Setup)
+
+1. Clone or download this repository:
+   ```bash
+   git clone https://github.com/haidermahh/ShortsLab.git
+   cd ShortsLab
+   ```
+
+2. Double-click **`run.bat`** (or run it in Command Prompt / Terminal):
+   - Automatically checks Python (3.10+ required).
+   - Creates virtual environment (`.venv`).
+   - Installs all dependencies.
+   - Downloads & configures FFmpeg automatically if not present.
+   - Downloads the speech recognition model.
+   - Automatically opens your default browser at **http://127.0.0.1:8765**.
+
+---
+
+### 🐧 Linux / macOS / Manual Setup
+
 You need Python 3.10 or newer and `ffmpeg` on your PATH.
 
 ```bash
-git clone <this repository> peakcut
+git clone https://github.com/haidermahh/ShortsLab.git
+cd ShortsLab
 ```
 
 ```bash
-cd peakcut
+python -m venv .venv
+# On Linux/macOS:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
 ```
 
 ```bash
@@ -47,12 +72,11 @@ python -m studio.fetch_model
 python -m studio.server
 ```
 
-Open http://127.0.0.1:8765. There is no sign-in: it opens straight into the dashboard. Go to **Settings, AI**, choose
-your AI service, paste your key and press **Save and test** (see [Choose your AI](#choose-your-ai)).
+Open http://127.0.0.1:8765 in your browser. There is no sign-in required on local machines: it opens straight into the dashboard. Go to **Settings > AI**, choose your AI service, paste your key and press **Save and test** (see [Choose your AI](#choose-your-ai)).
 
 ## Choose your AI
 
-PeakCut needs a chat model that can return JSON. The easy way is in the dashboard: **Settings, AI**. Pick the
+ShortsLab needs a chat model that can return JSON. The easy way is in the dashboard: **Settings > AI**. Pick the
 service, paste your key, press **Find models** to choose from the service's own list, then **Save and test**. The
 key is kept in the data folder on your machine and is never shown again.
 
@@ -101,7 +125,7 @@ Everything is set through environment variables, normally in a `.env` file next 
 
 This only matters with accounts switched on (`PEAKCUT_ACCOUNTS=1`); without them you are the owner and can do
 everything. An account is an admin only when the database says so. No email address is special in the code and no web request
-can change a role. Do it on the machine that runs PeakCut:
+can change a role. Do it on the machine that runs ShortsLab:
 
 ```bash
 python -m studio.admin grant you@example.com
@@ -123,14 +147,6 @@ Video work is done with `ffmpeg` and `yt-dlp`. Speech is transcribed with `sherp
 Data is kept per user: accounts in the database (SQLite on your own computer, PostgreSQL on a server), videos and
 clips in each user's own folder. [AGENTS.md](AGENTS.md) is a short map of the code for contributors and AI coding
 assistants.
-
-## Updating
-
-PeakCut checks GitHub every few hours. When a newer version is out, the dashboard shows a notice with what changed
-and how to update: ask your AI coding assistant to do it (the notice has a sentence to paste), or run
-`git pull && pip install -r requirements.txt` in the PeakCut folder and restart it (with Docker:
-`git pull && docker compose up -d --build`). Your `.env`, keys and clips are not touched. Only the two commit ids
-are sent to GitHub; set `PEAKCUT_UPDATE_CHECK=0` to turn the check off.
 
 ## Deploy
 
@@ -161,7 +177,7 @@ queue tests against it, then removes it. It needs no keys and never touches real
 
 ## Security
 
-- With sign-in off, PeakCut listens on this computer only (`127.0.0.1`), refuses changes sent by other websites,
+- With sign-in off, ShortsLab listens on this computer only (`127.0.0.1`), refuses changes sent by other websites,
   and only answers to its own address. Do not expose it to the internet that way: turn accounts on.
 - Passwords are stored only as salted scrypt hashes. Sessions are random tokens stored hashed; cookies are HTTP-only.
 - Every route works out who is asking from the session, never from the request, so users only reach their own data.

@@ -20,6 +20,7 @@ CLAUDE.local.md
 .vscode/
 .idea/
 *.bat
+!run.bat
 Thumbs.db
 .DS_Store
 
