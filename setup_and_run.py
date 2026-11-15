@@ -103,14 +103,29 @@ def main():
 
     free_port(8765)
 
-    # Step 6: Launch browser and server
+    # Step 6: Launch browser only when server is fully running and responding
     url = "http://127.0.0.1:8765"
-    print("\n========================================================")
-    print(f"  ShortsLab is starting at: {url}")
-    print("  Opening your default browser...")
-    print("========================================================\n")
 
-    threading.Timer(2.0, lambda: webbrowser.open(url)).start()
+    def open_browser_when_ready(target_url):
+        # Poll until the server is actually responding to HTTP requests
+        for _ in range(80):  # Wait up to 40 seconds
+            time.sleep(0.5)
+            try:
+                with urllib.request.urlopen(target_url, timeout=1) as resp:
+                    if resp.status in (200, 301, 302, 307):
+                        webbrowser.open(target_url)
+                        return
+            except Exception:
+                pass
+        # Fallback if polling timed out
+        webbrowser.open(target_url)
+
+    threading.Thread(target=open_browser_when_ready, args=(url,), daemon=True).start()
+
+    print("\n========================================================")
+    print("  Starting ShortsLab server...")
+    print("  Browser will open automatically once server is ready.")
+    print("========================================================\n")
 
     # Run the server
     try:
