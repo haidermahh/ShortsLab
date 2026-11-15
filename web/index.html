@@ -64,6 +64,11 @@ img.avatar{object-fit:cover;background:rgba(255,255,255,.08)}
 .nav-item.on img.avatar{background:var(--brand-ink)}
 .live-dot{width:8px;height:8px;border-radius:50%;background:var(--live);animation:pulse 1.3s infinite;flex:none}
 .side-foot{display:flex;flex-direction:column;gap:2px;padding-top:12px;border-top:1px solid var(--frame-line)}
+.built-by{padding:10px 8px 4px;font-size:11px;color:var(--frame-dim);text-align:center;letter-spacing:.01em;user-select:none;display:flex;align-items:center;justify-content:center;gap:4px}
+.built-by span{color:#FF2A54;font-size:12px;line-height:1}
+.built-by b a{color:var(--frame-text);text-decoration:none;font-weight:600;transition:color .15s ease}
+.built-by b a:hover{color:var(--brand)}
+.app.mini .built-by{display:none}
 .side-card{background:var(--frame-2);border-radius:var(--r);padding:12px 14px;margin-top:8px;font-size:12px;color:var(--frame-dim);display:flex;flex-direction:column;gap:7px}
 .side-card div{display:flex;align-items:center;gap:9px}
 .led{width:7px;height:7px;border-radius:50%;background:#3DDC97;flex:none}.led.no{background:#FF6B78}.led.mid{background:var(--brand)}
@@ -1254,7 +1259,8 @@ function drawShell() {  const nav = (v, icon, label, extra = "") => `<button cla
       <span class="ai-ic">${ic("bolt")}</span><span class="ai-tx"><small>AI</small><b>${k.ready ? esc(k.provider || "Ready") : "Not set up"}</b></span>${k.ready ? `<span class="ai-n">${(k.today_calls || 0).toLocaleString()} today</span>` : ""}</button>` : "") +
     (S.status.user ? `<div class="me"><button class="me-btn" data-act="acctmenu" aria-haspopup="menu" aria-expanded="false">${meAvatar(S.status.user)}
       <span class="who">${S.status.accounts === false ? `<b>Settings</b><span>AI key, connected apps</span>` : `<b>${esc(S.status.user.name)}</b><span>${esc(S.status.user.email)}</span>`}</span></button>
-      <button class="icon-btn bell" data-act="bell" title="Notifications" aria-label="Notifications${S.status.unread ? `, ${S.status.unread} new` : ""}" aria-haspopup="dialog">${ic("bell")}${S.status.unread ? `<span class="dotn">${S.status.unread > 9 ? "9+" : S.status.unread}</span>` : ""}</button></div>` : ""));
+      <button class="icon-btn bell" data-act="bell" title="Notifications" aria-label="Notifications${S.status.unread ? `, ${S.status.unread} new` : ""}" aria-haspopup="dialog">${ic("bell")}${S.status.unread ? `<span class="dotn">${S.status.unread > 9 ? "9+" : S.status.unread}</span>` : ""}</button></div>` : "") +
+    `<div class="built-by">Built with <span>❤️</span> by <b><a href="https://github.com/haidermahh" target="_blank" rel="noopener">Haider</a></b></div>`);
   const c = creator();
   const recording = S.creators.filter(x => x.live_job).length;
   let title = {overview:"Home", library:"All videos", settings:"Settings", usage:"AI usage"}[S.view] || "", sub = "", act = "";
