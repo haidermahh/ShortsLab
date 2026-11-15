@@ -45,15 +45,24 @@ svg{width:18px;height:18px;flex:none;fill:currentColor}
 .count{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--frame-text)}
 .nav-item.on .count{background:rgba(42,26,18,.14);color:var(--brand-ink)}
 .side-foot{display:flex;flex-direction:column;gap:2px;padding-top:12px;border-top:1px solid var(--frame-line)}
+.built-by{padding:10px 8px 4px;font-size:11px;color:var(--frame-dim);text-align:center;letter-spacing:.01em;user-select:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;line-height:1.4}
+.built-by .heart{color:#FF2A54;font-size:12px;line-height:1;margin:0 1px}
+.built-by .sep{color:var(--frame-line);font-size:10px}
+.built-by b a{color:var(--frame-text);text-decoration:none;font-weight:600;transition:color .15s ease}
+.built-by b a:hover{color:var(--brand)}
+.app-foot{margin-top:auto;padding:28px 32px 32px;border-top:1px solid var(--line);text-align:center;font-size:13px;color:var(--dim);user-select:none;flex-shrink:0}
+.app-foot .heart{color:#FF2A54;font-size:13px;line-height:1;margin:0 2px}
+.app-foot a{color:var(--brand-ink);text-decoration:none;font-weight:600;transition:color .15s ease}
+.app-foot a:hover{color:var(--brand)}
 .who{padding:10px 10px 2px;font-size:12px;color:var(--frame-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .who b{display:block;font-size:13px;color:var(--frame-text);font-weight:600;overflow:hidden;text-overflow:ellipsis}
 
-main{background:var(--bg);margin:8px 8px 8px 0;border-radius:var(--r-lg);height:calc(100vh - 16px);overflow-y:auto;min-width:0;scrollbar-gutter:stable}
+main{background:var(--bg);margin:8px 8px 8px 0;border-radius:var(--r-lg);height:calc(100vh - 16px);overflow-y:auto;min-width:0;scrollbar-gutter:stable;display:flex;flex-direction:column}
 .topbar{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:10px 28px;min-height:62px;border-bottom:1px solid var(--line)}
 .topbar .titles{flex:1;min-width:0}
 .topbar h1{font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--brand-ink)}
 .topbar p{font-size:13px;color:var(--dim)}
-.content{padding:22px 28px 60px;max-width:1320px}
+.content{padding:22px 28px 60px;max-width:1320px;width:100%;flex:1 0 auto;box-sizing:border-box}
 
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 14px;border-radius:var(--r);border:1px solid var(--line-2);background:#fff;color:var(--text);cursor:pointer;text-decoration:none;white-space:nowrap;font-weight:600;transition:background-color .15s ease,border-color .15s ease,color .15s ease}
@@ -171,6 +180,9 @@ dialog::backdrop{background:rgba(14,12,11,.42)}
   <main id="main">
     <header class="topbar"><div class="titles"><h1 id="title">Admin</h1><p id="subtitle"></p></div><div class="row" id="actions"></div></header>
     <div class="content" id="view"><div class="empty">Loading…</div></div>
+    <footer class="app-foot">
+      <span>© 2026 ShortsLab · Built with <span class="heart">❤️</span> by <a href="https://github.com/haidermahh" target="_blank" rel="noopener">Haider</a></span>
+    </footer>
   </main>
 </div>
 <dialog id="dlg"></dialog>
@@ -334,7 +346,8 @@ function draw() {
     `<a class="nav-item ${S.tab === k ? "on" : ""}" href="${pathFor(k)}" data-act="tab" data-k="${k}">${ic(i)}<span class="label">${l}</span>${k === "users" && a ? `<span class="count">${num(a.totals.users)}</span>` : ""}${k === "feedback" && S.fb?.counts.new ? `<span class="count">${num(S.fb.counts.new)}</span>` : ""}</a>`).join("");
   $("#foot").innerHTML = (S.me ? `<div class="who"><b>${esc(S.me.name)}</b>${esc(S.me.email)}</div>` : "") +
     `<a class="nav-item" href="/app">${ic("arrowr")}<span class="label">Back to the app</span></a>
-     <button class="nav-item" data-act="logout">${ic("signout")}<span class="label">Sign out</span></button>`;
+     <button class="nav-item" data-act="logout">${ic("signout")}<span class="label">Sign out</span></button>
+     <div class="built-by"><span>© 2026 ShortsLab</span><span class="sep">·</span><span>Built with <span class="heart">❤️</span> by <b><a href="https://github.com/haidermahh" target="_blank" rel="noopener">Haider</a></b></span></div>`;
   $("#title").textContent = title; $("#subtitle").textContent = sub;
   $("#actions").innerHTML = `<button class="btn sm" data-act="refresh">Refresh</button>`;
   if (S.tab === "feedback") { if (!S.fb && !S.fbLoading) { S.fbLoading = true; loadFeedback().finally(() => S.fbLoading = false); } $("#view").innerHTML = drawFeedback(); return; }
