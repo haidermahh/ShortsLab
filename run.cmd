@@ -8,9 +8,21 @@ if %ERRORLEVEL% equ 0 (
     goto :eof
 )
 
-if exist "%LOCALAPPDATA%\Programs\Python\Python310\python.exe" (
-    "%LOCALAPPDATA%\Programs\Python\Python310\python.exe" setup_and_run.py
+where py >nul 2>&1
+if %ERRORLEVEL% equ 0 (
+    py -3 setup_and_run.py
     goto :eof
+)
+
+for %%v in (313 312 311 310) do (
+    if exist "%LOCALAPPDATA%\Programs\Python\Python%%v\python.exe" (
+        "%LOCALAPPDATA%\Programs\Python\Python%%v\python.exe" setup_and_run.py
+        goto :eof
+    )
+    if exist "%ProgramFiles%\Python%%v\python.exe" (
+        "%ProgramFiles%\Python%%v\python.exe" setup_and_run.py
+        goto :eof
+    )
 )
 
 if exist "%~dp0.venv\Scripts\python.exe" (
