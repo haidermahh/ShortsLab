@@ -1,9 +1,10 @@
 """Job pipeline: get video -> audio -> transcript -> AI picks -> rendered clips. One heavy task at a time."""
 import collections
 import json
-import os
 import math
+import os
 import queue
+import re
 import shutil
 import threading
 import time
@@ -108,10 +109,33 @@ _lock = threading.RLock()
 on_clip_ready: list = []   # callbacks (job, clip), run once when a clip first finishes
 
 DEFAULTS = {"max_clips": 6, "min_len": 15, "max_len": 60, "style": "bounce", "layout": "blur", "quality": 720,
-            "big_text": 0, "range_start": None, "range_end": None}
+            "big_text": 0, "custom_hooks": [], "range_start": None, "range_end": None}
 
 
 LIMITS = {"max_clips": (1, 20), "min_len": (5, 120), "max_len": (10, 180), "quality": (360, 1080)}
+
+
+def parse_custom_texts(raw) -> list:
+    """Parses custom hook texts separated by blank lines, commas, or newlines."""
+    if not raw:
+        return []
+    if isinstance(raw, list):
+        return [re.sub(r"\s+", " ", str(x)).strip().strip("\"'")[:100] for x in raw if str(x).strip()]
+    raw = str(raw).strip()
+    if not raw:
+        return []
+    if re.search(r"\n\s*\n", raw):
+        parts = re.split(r"\n\s*\n+", raw)
+    elif "," in raw:
+        parts = raw.split(",")
+    else:
+        parts = raw.splitlines()
+    out = []
+    for p in parts:
+        s = re.sub(r"\s+", " ", p).strip().strip("\"'")
+        if s:
+            out.append(s[:100])
+    return out
 
 
 def clean_options(options) -> dict:
@@ -129,9 +153,12 @@ def clean_options(options) -> dict:
             v = v if v in render.LAYOUTS else DEFAULTS["layout"]
         elif k == "big_text":
             try:
-                v = 1 if int(v or 0) else 0
+                iv = int(v or 0)
+                v = iv if iv in (0, 1, 2) else (1 if iv else 0)
             except (ValueError, TypeError):
                 v = 0
+        elif k == "custom_hooks":
+            v = parse_custom_texts(v)
         else:                                    # range_start, range_end: seconds into the video
             v = float(v)
             if not math.isfinite(v) or v < 0:
@@ -286,7 +313,7 @@ def create(source: dict, options: dict, enqueue=True, creator=None, kind="video"
     c = creators.get(creator) if creator else None
     if c:
         d = creators.root(c["id"]) / ("live" if kind == "live" else "videos") / jid
-        base = {**DEFAULTS, **{k: c[k] for k in ("max_clips", "min_len", "max_len", "style", "layout")}}
+        base = {**DEFAULTS, **{k: c[k] for k in ("max_clips", "min_len", "max_len", "style", "layout", "big_text") if k in c}}
     else:
         d, base, creator = config.user_dir(ctx.uid()) / "jobs" / jid, dict(DEFAULTS), None
     d.mkdir(parents=True)
@@ -643,11 +670,21 @@ def _run_job(job):
         model = ai.get("model") or model
         if ai.get("note"):
             notes.append(ai["note"])
+        custom_hooks = o.get("custom_hooks") or []
         for c in found:
-            c.update(id=f"clip{len(job['clips']) + 1:02d}", start=round(c["start"] + shift, 2),
+            idx = len(job["clips"])
+            c.update(id=f"clip{idx + 1:02d}", start=round(c["start"] + shift, 2),
                      end=round(c["end"] + shift, 2), style=o["style"], layout=o["layout"], status="queued", version=0)
             if not o.get("big_text"):
                 c["hook"] = ""
+            elif o.get("big_text") == 2:
+                if custom_hooks:
+                    c["hook"] = custom_hooks[idx % len(custom_hooks)]
+                    c["manual_hook"] = True
+                    if not c.get("title") or c.get("title", "").startswith("Moment at"):
+                        c["title"] = c["hook"]
+                else:
+                    c["hook"] = ""
             job["clips"].append(c)
             futures.append(renders.submit(ctx.bind(make), c, list(words)))
         job["ai"] = {"model": model, "tokens": tokens, "note": "", "log": notes[-5:]}

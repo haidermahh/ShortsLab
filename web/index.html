@@ -1375,9 +1375,14 @@ function drawAdd(variant) {
       </div></div>
       <div class="ob"><div class="ot">Caption style</div>${choice("o_style", Object.entries(S.status.styles).map(([k, v]) => ({v:k, label:v, prev:capPrev(k)})), c?.style ?? "bounce")}</div>
       <div class="ob"><div class="ot">Layout</div>${choice("o_layout", Object.entries(S.status.layouts).map(([k, v]) => ({v:k, label:LAYOUT_SHORT[k] || v, title:v, prev:`<span class="lay-prev ${esc(k)}"><span class="ph"><i></i></span></span>`})), c?.layout ?? "blur")}</div>
-      <div class="ob"><div class="ot">Big text (on video)</div><input type="hidden" id="o_big_text" value="${c?.big_text ? '1' : '0'}"><div class="seg" role="group" aria-label="Big text">
-        <button type="button" data-seg="o_big_text" data-v="0" aria-pressed="${c?.big_text ? 'false' : 'true'}">Off<small>No text on video</small></button>
-        <button type="button" data-seg="o_big_text" data-v="1" aria-pressed="${c?.big_text ? 'true' : 'false'}">On<small>Show hook title</small></button></div></div>
+      <div class="ob wide"><div class="ot">Big text (on video)</div><input type="hidden" id="o_big_text" value="${c?.big_text != null ? Number(c.big_text) : 0}"><div class="seg" role="group" aria-label="Big text">
+        <button type="button" data-seg="o_big_text" data-v="0" aria-pressed="${!c?.big_text ? 'true' : 'false'}">Off<small>No text on video</small></button>
+        <button type="button" data-seg="o_big_text" data-v="1" aria-pressed="${Number(c?.big_text) === 1 ? 'true' : 'false'}">AI write<small>AI hook title</small></button>
+        <button type="button" data-seg="o_big_text" data-v="2" aria-pressed="${Number(c?.big_text) === 2 ? 'true' : 'false'}">Own text<small>Paste your own</small></button></div>
+        <div id="box_custom_text" style="margin-top:10px;${Number(c?.big_text) === 2 ? '' : 'display:none;'}">
+          <textarea id="o_custom_text" placeholder="Paste your text here, separated by comma or blank line...&#10;e.g. First hook title, Second hook title&#10;or:&#10;First hook title&#10;&#10;Second hook title" rows="3" style="width:100%;font-size:13px;"></textarea>
+          <p class="hint" style="margin:4px 0 0;font-size:12px;">Separated by comma or blank line. Each video or clip gets one text in order.</p>
+        </div></div>
       <div class="ob"><div class="ot">Video quality</div><input type="hidden" id="o_quality" value="720"><div class="seg" role="group" aria-label="Video quality">
         <button type="button" data-seg="o_quality" data-v="720" aria-pressed="true">720p<small>Fast</small></button>
         <button type="button" data-seg="o_quality" data-v="1080" aria-pressed="false">1080p<small>Sharper, about 2x slower</small></button></div></div>
@@ -1424,8 +1429,16 @@ document.addEventListener("click", e => {
     p.querySelector("input[type=hidden]").dispatchEvent(new Event("change", {bubbles: true})); return; }
   if (!e.target.closest(".pick") || e.target.closest(".pick-new")) closePicks();
   const sg = e.target.closest("[data-seg]");
-  if (sg) { $("#" + sg.dataset.seg).value = sg.dataset.v;
-    sg.parentElement.querySelectorAll("[data-seg]").forEach(b => b.setAttribute("aria-pressed", String(b === sg))); return; }
+  if (sg) {
+    const input = $("#" + sg.dataset.seg);
+    if (input) input.value = sg.dataset.v;
+    sg.parentElement.querySelectorAll("[data-seg]").forEach(b => b.setAttribute("aria-pressed", String(b === sg)));
+    if (sg.dataset.seg === "o_big_text") {
+      const box = $("#box_custom_text");
+      if (box) box.style.display = sg.dataset.v === "2" ? "" : "none";
+    }
+    return;
+  }
   const st = e.target.closest("[data-step]");
   if (st) { const i = $("#" + st.dataset.step), s = Number(i.step) || 1, d = Number(st.dataset.d);
     const v = Math.min(Number(i.max), Math.max(Number(i.min), (Number(i.value) || 0) + d * s)); i.value = v; }
@@ -1440,9 +1453,20 @@ document.addEventListener("keydown", e => {
   os[(i + (e.key === "ArrowDown" ? 1 : -1) + os.length) % os.length].focus();
 });
 const targetCreator = () => creatorId() || $("#o_creator")?.value || "";
+function parseCustomTexts(raw) {
+  if (!raw || !raw.trim()) return [];
+  raw = raw.trim();
+  let parts;
+  if (/\n\s*\n/.test(raw)) parts = raw.split(/\n\s*\n+/);
+  else if (raw.includes(",")) parts = raw.split(",");
+  else parts = raw.split(/\r?\n/);
+  return parts.map(s => s.replace(/\s+/g, " ").trim().replace(/^["']|["']$/g, "")).filter(Boolean);
+}
 function jobOptions() {
   const n = id => { const el = $(id); if (!el) return null; const v = el.value; return v === "" ? null : Number(v); };
   const bt = $("#o_big_text") ? Number($("#o_big_text").value || 0) : 0;
+  const customRaw = $("#o_custom_text") ? $("#o_custom_text").value : "";
+  const customTexts = parseCustomTexts(customRaw);
   const o = {
     max_clips: n("#o_max"),
     min_len: n("#o_min"),
@@ -1450,7 +1474,8 @@ function jobOptions() {
     style: $("#o_style")?.value || "bounce",
     layout: $("#o_layout")?.value || "blur",
     quality: n("#o_quality") || 720,
-    big_text: bt === 1 ? 1 : 0
+    big_text: bt === 2 ? 2 : bt === 1 ? 1 : 0,
+    custom_hooks: customTexts
   };
   if (n("#o_from") !== null) o.range_start = n("#o_from") * 60;
   if (n("#o_to") !== null) o.range_end = n("#o_to") * 60;
@@ -1579,9 +1604,9 @@ document.addEventListener("click", e => {
 
 // A big file goes in pieces (anything standing in front of the app refuses one huge request), two at a time,
 // and a piece that fails is simply sent again. The bar shows the whole file.
-async function sendBig(f, who) {
+async function sendBig(f, who, opts) {
   const file = f.file;
-  const s = await send("/api/upload/start", {name: file.name, size: file.size, options: jobOptions(), creator: who});
+  const s = await send("/api/upload/start", {name: file.name, size: file.size, options: opts || jobOptions(), creator: who});
   const sent = new Array(s.parts).fill(0);
   const show = () => { f.pct = Math.min(99, Math.round(sent.reduce((a, b) => a + b, 0) / file.size * 100)); drawAtt(); };
   const put = i => new Promise((ok, fail) => {
@@ -1618,11 +1643,11 @@ async function sendBig(f, who) {
     throw e;
   }
 }
-function sendFile(f, who) {
-  if (S.status.upload_part_mb && f.file.size > S.status.upload_part_mb * 1048576) return sendBig(f, who);
+function sendFile(f, who, opts) {
+  if (S.status.upload_part_mb && f.file.size > S.status.upload_part_mb * 1048576) return sendBig(f, who, opts);
   return new Promise((ok, fail) => {
     const x = new XMLHttpRequest(), fd = new FormData();
-    fd.append("file", f.file); fd.append("options", JSON.stringify(jobOptions())); fd.append("creator", who);
+    fd.append("file", f.file); fd.append("options", JSON.stringify(opts || jobOptions())); fd.append("creator", who);
     x.open("POST", "/api/upload");
     x.upload.onprogress = e => { if (e.lengthComputable) { f.pct = Math.round(e.loaded / e.total * 100); drawAtt(); } };
     x.onload = () => {
@@ -1652,16 +1677,32 @@ async function makeClips() {
   }
   A.busy = true; drawAtt();
   let started = 0, failed = 0;
-  const who = targetCreator(), opts = jobOptions();
-  for (const l of A.links.filter(x => x.state === "ok")) {
+  const who = targetCreator(), baseOpts = jobOptions();
+  const okLinks = A.links.filter(x => x.state === "ok");
+  const files = A.files;
+  const total = okLinks.length + files.length;
+  const customList = baseOpts.custom_hooks || [];
+
+  let itemIdx = 0;
+  for (const l of okLinks) {
     l.sending = true; drawAtt();
+    const opts = {...baseOpts};
+    if (baseOpts.big_text === 2 && customList.length) {
+      opts.custom_hooks = total > 1 ? [customList[itemIdx % customList.length]] : customList;
+    }
+    itemIdx++;
     try { await send("/api/jobs", {url: l.url, options: opts, creator: who}); l.state = "done"; started++; }
     catch (e) { l.state = "bad"; l.msg = e.message; failed++; }
     l.sending = false; drawAtt();
   }
-  for (const f of A.files) {
+  for (const f of files) {
     f.state = "up"; f.pct = 0; drawAtt();
-    try { await sendFile(f, who); f.state = "done"; started++; }
+    const opts = {...baseOpts};
+    if (baseOpts.big_text === 2 && customList.length) {
+      opts.custom_hooks = total > 1 ? [customList[itemIdx % customList.length]] : customList;
+    }
+    itemIdx++;
+    try { await sendFile(f, who, opts); f.state = "done"; started++; }
     catch (e) { f.state = "error"; f.err = e.message; failed++; }
     drawAtt();
   }
@@ -1865,6 +1906,7 @@ function drawCreatorForm() {
     <div class="card"><h2>Clips</h2><p class="help">How this creator's clips look.</p>
       <div class="fields"><label class="f">Caption style<select data-k="style">${opts(S.status.styles, c.style)}</select></label>
         <label class="f">Layout<select data-k="layout">${opts(S.status.layouts, c.layout)}</select></label>
+        <label class="f">Big text (on video)<select data-k="big_text">${opts({0:"Off (no text on video)", 1:"AI write (AI hook title)", 2:"Own text (use custom text)"}, c.big_text || 0)}</select></label>
         <label class="f">Shortest clip (seconds)<input data-k="min_len" type="number" value="${c.min_len}"></label>
         <label class="f">Longest clip (seconds)<input data-k="max_len" type="number" value="${c.max_len}"></label>
         <label class="f">Clips per video<input data-k="max_clips" type="number" value="${c.max_clips}"></label>

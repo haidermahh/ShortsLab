@@ -73,6 +73,12 @@ def _clean(data: dict) -> dict:
             v = v if v in ("both", "either") else "both"
         elif k == "privacy":
             v = v if v in ("public", "unlisted", "private") else "public"
+        elif k == "big_text":
+            try:
+                iv = int(v or 0)
+                v = iv if iv in (0, 1, 2) else (1 if iv else 0)
+            except (ValueError, TypeError):
+                v = 0
         else:
             v = str(v).strip()[:300]
         out[k] = v

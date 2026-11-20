@@ -3,10 +3,22 @@ title ShortsLab
 cd /d "%~dp0"
 
 where python >nul 2>&1
-if %ERRORLEVEL% neq 0 goto :no_python
+if %ERRORLEVEL% equ 0 (
+    python setup_and_run.py
+    goto :eof
+)
 
-python setup_and_run.py
-goto :eof
+if exist "%LOCALAPPDATA%\Programs\Python\Python310\python.exe" (
+    "%LOCALAPPDATA%\Programs\Python\Python310\python.exe" setup_and_run.py
+    goto :eof
+)
+
+if exist "%~dp0.venv\Scripts\python.exe" (
+    "%~dp0.venv\Scripts\python.exe" setup_and_run.py
+    goto :eof
+)
+
+goto :no_python
 
 :no_python
 echo.
